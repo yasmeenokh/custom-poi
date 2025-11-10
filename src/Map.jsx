@@ -9,19 +9,93 @@ const containerStyle = {
 };
 
 const myPOIs = [
-  { id: 1,  name: "Ayla Marina",           lat: 29.5450,  lng: 34.9900, type: "resort" },
-  { id: 2,  name: "Ayla Golf Club",        lat: 29.5460,  lng: 34.9920, type: "park" },
-  { id: 3,  name: "Ayla Water Park",       lat: 29.5420,  lng: 34.9890, type: "park" },
-  { id: 4,  name: "Ayla Beach Club",       lat: 29.5410,  lng: 34.9880, type: "beach" },
-  { id: 5,  name: "Ayla Golf Club (Alt)",  lat: 29.5465,  lng: 34.9930, type: "resort" },
-  { id: 6,  name: "Ayla Boutique Hotel",   lat: 29.5440,  lng: 34.9910, type: "resort" },
-  { id: 7,  name: "Cloud7 Residence",      lat: 29.5430,  lng: 34.9905, type: "resort" },
-  { id: 8,  name: "Marina Village",        lat: 29.5452,  lng: 34.9915, type: "shopping" },
-  { id: 10, name: "Mama Gaia Beach Club",  lat: 29.5435,  lng: 34.9885, type: "beach" },
-  { id: 11, name: "B12 Beach Club",        lat: 29.5438,  lng: 34.9898, type: "beach" },
-  { id: 12, name: "The Courts by Ayla",    lat: 29.5468,  lng: 34.9925, type: "sports" },
-  { id: 13, name: "Rise Adventure Park",   lat: 29.5428,  lng: 34.9892, type: "park" },
-  { id: 14, name: "Diverse Divers Club",   lat: 29.5432,  lng: 34.9902, type: "beach" },
+  // {
+  //   id: 1,
+  //   name: "Hyatt Regency Aqaba Ayla",
+  //   lat: 29.5480288,
+  //   lng: 34.9853589,
+  //   type: "resort",
+  // },
+  // { id: 2, name: "Mama Gaia", lat: 29.5480288, lng: 34.9853589, type: "park" },
+  // {
+  //   id: 3,
+  //   name: "Island Apartments 1",
+  //   lat: 29.5474604,
+  //   lng: 34.9844776,
+  //   type: "resort",
+  // },
+  // {
+  //   id: 4,
+  //   name: "Cloud7 Residence Ayla Aqaba",
+  //   lat: 29.543,
+  //   lng: 34.9905,
+  //   type: "resort",
+  // },
+  // {
+  //   id: 5,
+  //   name: "La Plage",
+  //   lat: 29.5474282,
+  //   lng: 34.9882203,
+  //   type: "shopping",
+  // },
+  // {
+  //   id: 6,
+  //   name: "Ayla Marina",
+  //   lat: 29.5488347,
+  //   lng: 34.9851153,
+  //   type: "beach",
+  // },
+  // {
+  //   id: 7,
+  //   name: "Marina Village - Ayla",
+  //   lat: 29.5458356,
+  //   lng: 34.9870556,
+  //   type: "resort",
+  // },
+  {
+    id: 1,
+    name: "Hyatt Regency Aqaba Ayla",
+    lat: 29.5480288,
+    lng: 34.9853589,
+    type: "resort",
+  },
+  { id: 2, name: "Mama Gaia", lat: 29.5480288, lng: 34.9853589, type: "park" },
+  {
+    id: 3,
+    name: "Island Apartments 1",
+    lat: 29.5474604,
+    lng: 34.9844776,
+    type: "resort",
+  },
+  {
+    id: 4,
+    name: "Cloud7 Residence Ayla Aqaba",
+    lat: 29.5474282,
+    lng: 34.9882203,
+    type: "resort",
+  },
+  {
+    id: 5,
+    name: "La Plage",
+    lat: 29.5474282,
+    lng: 34.9882203,
+    type: "shopping",
+  },
+
+  {
+    id: 6,
+    name: "Ayla Marina",
+    lat: 29.5488347,
+    lng: 34.9851153,
+    type: "beach",
+  },
+  {
+    id: 7,
+    name: "Marina Village - Ayla",
+    lat: 29.5458356,
+    lng: 34.9870556,
+    type: "resort",
+  },
 ];
 
 const iconMap = {
@@ -63,11 +137,8 @@ const mapStyles = [
   },
 ];
 
-// // Auto-center based on POIs
-// const avgLat = myPOIs.reduce((sum, p) => sum + p.lat, 0) / myPOIs.length;
-// const avgLng = myPOIs.reduce((sum, p) => sum + p.lng, 0) / myPOIs.length;
-// const center = { lat: avgLat, lng: avgLng };
-const apiKey = import.meta.env.VITE_GOOGLE_MAP_KEY
+const apiKey = import.meta.env.VITE_GOOGLE_MAP_KEY;
+
 const MapWithCluster = () => {
   const [selectedPOI, setSelectedPOI] = useState(null);
 
@@ -114,7 +185,7 @@ const MapWithCluster = () => {
           styles: mapStyles,
           disableDefaultUI: false,
           mapTypeId: "satellite",
-          tilt: 45,
+          rotate: 40,
           heading: 90,
           // this is to prevent the user from navigating outside of certain area
           restriction: {
@@ -126,8 +197,8 @@ const MapWithCluster = () => {
             },
             strictBounds: true,
           },
-          minZoom: 8,
-          maxZoom: 20,
+          minZoom: 10,
+          maxZoom: 24,
         }}
         onLoad={onLoad}>
         {selectedPOI && (
