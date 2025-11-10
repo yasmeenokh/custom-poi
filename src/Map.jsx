@@ -147,7 +147,7 @@ const MapWithCluster = () => {
   }, []);
 
   return (
-    <LoadScript googleMapsApiKey="AIzaSyC7HWyIhqqoiXw5vcTqgH9BI0GD7NVt66A">
+    <LoadScript googleMapsApiKey={process.env.MAP_KEY}>
       <GoogleMap
         mapContainerStyle={containerStyle}
         zoom={16}
