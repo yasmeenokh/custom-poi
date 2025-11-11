@@ -179,8 +179,8 @@ const MapWithCluster = () => {
         }, i * 150);
       });
       // Apply rotation & tilt
-      map.setHeading(90);
-      map.setTilt(45);
+      map.setHeading(-90);
+      map.setTilt(-45);
       setTimeout(() => {
         new MarkerClusterer({ map, markers });
       }, markers.length * 150 + 100); // wait until all drops finish
