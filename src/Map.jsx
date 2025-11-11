@@ -206,7 +206,7 @@ const MapWithCluster = () => {
       const marker = markersRef.current.find((m) => m.getTitle() === poi.name);
       if (marker) {
         marker.setAnimation(window.google.maps.Animation.BOUNCE);
-        setTimeout(() => marker.setAnimation(null), 1400);
+        setTimeout(() => marker.setAnimation(null), 500);
       }
     });
   };
