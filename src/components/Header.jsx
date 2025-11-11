@@ -50,7 +50,16 @@ const Header = () => {
     },
     {
       name: "Offers",
-      dropdownItems: ["Offer 1", "Offer 2", "Offer 3", "Offer 4", "Offer 5", "Offer 6", "Offer 7", "Offer 8"],
+      dropdownItems: [
+        "Offer 1",
+        "Offer 2",
+        "Offer 3",
+        "Offer 4",
+        "Offer 5",
+        "Offer 6",
+        "Offer 7",
+        "Offer 8",
+      ],
     },
     { name: "Contact" },
   ];
@@ -74,7 +83,11 @@ const Header = () => {
       </button>
       {dropdownOpen === name && (
         <div
-          className={`absolute top-[86%] left-0 right-0 h-[40vh] w-screen z-99 bg-[#005f9b] rounded-b-[1.5rem] pt-[40px]`}>
+          className={`absolute top-full left-0 right-0 h-[40vh] w-screen z-99 rounded-b-3xl pt-10`}
+          style={{
+            background: "linear-gradient(to top, #2978b5, #004874 80%)",
+          }}
+          >
           <div
             className="py-4 container mx-auto  grid grid-rows-3 auto-cols-max gap-4"
             style={{ gridAutoFlow: "column" }}
@@ -96,8 +109,14 @@ const Header = () => {
     </div>
   );
 
+
+
   return (
-    <header className="font-sans pb-1 text-[#ffff] mb-[40px] relative rounded-b-[1rem] z-9 bg-[#005f9b]">
+    <header
+      className="font-sans pb-1 text-[#ffff] mb-10 relative z-9"
+      style={{ background: "linear-gradient(to bottom, #2978b5, #004874)",
+        borderRadius: dropdownOpen ? 0 : "0 0 1rem 1rem"
+      }}>
       <nav className="container mx-auto px-4 py-4 ">
         <div className="flex justify-between items-center">
           <div className="flex items-center space-x-4">
@@ -132,7 +151,11 @@ const Header = () => {
 
         {/* Mobile Navigation */}
         {isOpen && (
-          <div className="md:hidden mt-4 space-y-2 absolute z-9 bg-[#005f9b] w-screen left-0 top-[65%] rounded-b-[1rem] pt-[40px] h-[calc(100vh-72px)] overflow-auto pb-[34px]">
+          <div
+            className="md:hidden mt-4 space-y-2 absolute z-9 w-screen left-0 top-[65%] rounded-b-2xl pt-10 h-[calc(100vh-72px)] overflow-auto pb-[34px]"
+            style={{
+              background: "linear-gradient(to top, #2978b5, #004874 80%)",
+            }}>
             {navigationItems.map((item) => (
               <div key={item.name} className="py-2">
                 {item.dropdownItems ? (

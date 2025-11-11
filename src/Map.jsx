@@ -16,8 +16,7 @@ const layoutStyle = {
   position: "relative",
   width: "100%",
 };
-const sidebarWidth = 300; // px
-
+const sidebarWidth = 300;
 const myPOIs = [
   {
     id: 1,
@@ -145,6 +144,7 @@ const apiKey = import.meta.env.VITE_GOOGLE_MAP_KEY;
 const MapWithCluster = () => {
   const [selectedPOI, setSelectedPOI] = useState(null);
   const [sidebarOpen, setSidebarOpen] = useState(true);
+  const [visiblePOI, setVisiblePOI] = useState(null);
   const mapRef = useRef(null);
   // const markersRef = useRef([]);
   const toggleSidebar = () => setSidebarOpen((prev) => !prev);
@@ -189,11 +189,26 @@ const MapWithCluster = () => {
 
   // Center map when a sidebar item is clicked
   const handlePOIClick = (poi) => {
-    setSelectedPOI(poi);
-    if (mapRef.current) {
-      mapRef.current.panTo({ lat: poi.lat, lng: poi.lng });
-      mapRef.current.setZoom(18);
-    }
+    if (!mapRef.current) return;
+    const map = mapRef.current;
+    const img = new Image();
+    img.src = poi.img;
+    img.onload = () => setSelectedPOI(poi);
+
+    // Smooth pan
+    map.panTo({ lat: poi.lat, lng: poi.lng });
+    const targetZoom = 18;
+    const zoomInterval = setInterval(() => {
+      if (map.getZoom() < targetZoom) map.setZoom(map.getZoom() + 1);
+      else clearInterval(zoomInterval);
+    }, 50);
+    window.google.maps.event.addListenerOnce(map, "idle", () => {
+      const marker = markersRef.current.find((m) => m.getTitle() === poi.name);
+      if (marker) {
+        marker.setAnimation(window.google.maps.Animation.BOUNCE);
+        setTimeout(() => marker.setAnimation(null), 1400);
+      }
+    });
   };
 
   const dynamicSidebarStyle = {
@@ -291,7 +306,13 @@ const MapWithCluster = () => {
               <OverlayView
                 position={{ lat: selectedPOI.lat, lng: selectedPOI.lng }}
                 mapPaneName={OverlayView.OVERLAY_MOUSE_TARGET}>
-                <div className={classes.custom_popup}>
+                <div
+                  className={classes.custom_popup}
+                  style={{
+                    transition: "opacity 0.3s ease",
+                    opacity: selectedPOI ? 1 : 0,
+                  }}
+                  key={selectedPOI.id}>
                   <img src={selectedPOI.img} alt={selectedPOI.name} />
                   <div className={classes.text_content_wrapper}>
                     <div className={classes.popup_header}>
