@@ -16,12 +16,16 @@ h1 {
   background: #fff;
   border-radius: 10px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-  padding: 10px 10px 24px;
   width: 250px;
-  transform: translate(-50%, -175%);
+  transform: translate(-50%, -130%);
   color: #3f496e;
   position: relative;
   z-index: 9;
+}
+.custom_popup img {
+  width: 100%;
+  border-radius: 10px 10px 0 0;
+  height: 150px;
 }
 .custom_popup::after{
   content: "";
@@ -37,7 +41,9 @@ h1 {
   border-radius: 4px;
   z-index: 0;
 }
-
+.text_content_wrapper {
+  padding: 10px 10px 24px;
+}
 .popup_header {
   display: flex;
   align-items: center;
